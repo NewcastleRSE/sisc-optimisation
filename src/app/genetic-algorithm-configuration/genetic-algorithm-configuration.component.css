@@ -1,0 +1,45 @@
+
+.objectiveCardSelected {
+  background-color: rgb(98,0,238, 0.09);
+
+}
+
+#optimisationQueryCard .mat-form-field {
+  max-width: 107px;
+}
+
+/* //display number of sensors as radio button cards so hide radio buttons and set checked behaviour */
+mat-radio-group.asCard{
+  /* ::ng-deep .mat-radio-button .mat-radio-container {
+    width: 0;
+  }
+  ::ng-deep .mat-radio-container .mat-radio-outer-circle,
+  ::ng-deep .mat-radio-container .mat-radio-inner-circle {
+    border: none;
+    width: 0;
+  }
+
+  ::ng-deep.mat-radio-checked mat-card{
+    background-color: rgb(98,0,238, 0.09);
+  } */
+
+  ::ng-deep .mat-radio-button .mat-radio-container {
+    width: 0;
+  }
+  ::ng-deep .mat-radio-container .mat-radio-outer-circle,
+  ::ng-deep .mat-radio-container .mat-radio-inner-circle {
+    border: none;
+    width: 0;
+  }
+
+  ::ng-deep.mat-radio-checked mat-card{
+    background-color: rgb(98,0,238, 0.09);
+  } 
+   
+}
+
+#optimisationQueryCard {
+  width: 400px;
+  /* //position: absolute;
+  //top: 40px; */
+}

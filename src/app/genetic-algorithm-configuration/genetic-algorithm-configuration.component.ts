@@ -7,7 +7,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 @Component({
   selector: 'app-genetic-algorithm-configuration',
   templateUrl: './genetic-algorithm-configuration.component.html',
-  styleUrls: ['./genetic-algorithm-configuration.component.scss']
+  styleUrls: ['./genetic-algorithm-configuration.component.css']
 })
 export class GeneticAlgorithmConfigurationComponent implements OnInit {
 
@@ -55,6 +55,7 @@ export class GeneticAlgorithmConfigurationComponent implements OnInit {
       // turn off error message if showing
       this.objectiveNotChosen = false;
     }
+    
   }
 
   // check is objective is selected
@@ -64,6 +65,8 @@ export class GeneticAlgorithmConfigurationComponent implements OnInit {
 
 
   submitGeneticQuery() {
+    console.log(this.sensorNumber)
+    console.log(this.theta)
     if (this.selectedObjectives.length === 0) {
       // error as have to select at least one objective
       this.objectiveNotChosen  = true;

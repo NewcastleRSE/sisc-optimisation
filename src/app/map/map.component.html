@@ -6,7 +6,8 @@
 
      <div class="map"
      leaflet
-     [leafletOptions]="options">
+     [leafletOptions]="options"
+     (leafletMapReady)="onMapReady($event)">
 
 
   <div id="no-scroll">

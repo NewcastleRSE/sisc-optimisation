@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 @Component({
   selector: 'app-data-layer-info-dialog',
   templateUrl: './help-text-info-dialog.component.html',
-  styleUrls: ['./help-text-info-dialog.component.scss']
+  styleUrls: ['./help-text-info-dialog.component.css']
 })
 export class HelpTextInfoDialogComponent implements OnInit {
 text;

@@ -4,8 +4,8 @@ import {MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef} from '@angular/material/
 @Component({
 
   selector: 'app-walkthrough-dialog',
-  templateUrl: './walkthrough-dialog.component.html'
-  // styleUrls: ['./walkthrough-dialog.component.scss']
+  templateUrl: './walkthrough-dialog.component.html',
+  styleUrls: [] // Remove the reference to the stylesheet
 })
 
 export class WalkthroughDialogComponent implements OnInit{

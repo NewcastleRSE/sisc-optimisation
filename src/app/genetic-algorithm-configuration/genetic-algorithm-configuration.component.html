@@ -1,21 +1,24 @@
 <mat-expansion-panel id="geneticConfigPanel" #expansionPanel style="width: 600px;">
   <mat-expansion-panel-header [collapsedHeight]="'48px'" [expandedHeight]="'48px'">
-    <span style="color:#6200ea; font-weight:bold;">Sensor network generation query<span class="infoIcon" (click)="openInfo('optimisationQuery')"><mat-icon>info</mat-icon></span></span>
+    <span style="color:#6200ea; font-weight:bold;">Sensor network generation query<span class="infoIcon"
+        (click)="openInfo('optimisationQuery')"><mat-icon>info</mat-icon></span></span>
     <!--    <mat-icon matPrefix fontSet="fa" fontIcon="fa-caret-down" style="margin-top:4px;"></mat-icon>-->
   </mat-expansion-panel-header>
 
-<!--  <mat-card id="optimisationQueryCard" style="cursor: default !important;">-->
+  <!--  <mat-card id="optimisationQueryCard" style="cursor: default !important;">-->
 
   <!--        Select objectives-->
-<!--  Must choose at least one-->
+  <!--  Must choose at least one-->
   <p>Objectives: <span class="infoIcon" (click)="openInfo('objectiveChoice')"><mat-icon>info</mat-icon></span></p>
   <div>
-    <div fxLayout="row wrap" fxLayoutAlign="center center"  fxLayoutGap="8px grid">
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="8px grid">
       <div fxFlex="50%" *ngFor="let obj of geneticObjectives">
         <mat-card id="{{obj.id}}" class="geneticObjectiveCard" style="cursor: pointer !important; width: 150px; height: 30px; padding-top: 3px;
             padding-bottom:0px; text-align: center;" (click)="toggleGeneticObjective(obj.id)">
           <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="8px grid">
-            <div fxFlex="85%"><p>{{obj.text}}</p></div>
+            <div fxFlex="85%">
+              <p>{{obj.text}}</p>
+            </div>
             <div *ngIf="objIsSelected(obj.id)" fxFlex="15%">
               <mat-icon fontSet="fa" fontIcon="fa-check-circle"></mat-icon>
             </div>
@@ -26,68 +29,36 @@
     </div>
   </div>
 
-  <!--        <mat-grid-list class="grid-tile-left-justify" cols="2" rowHeight="1:0.25">-->
-  <!--          <mat-grid-tile>-->
-  <!--            <p style="margin-bottom: 0px">Set budget or number of sensors:</p>-->
-  <!--          </mat-grid-tile>-->
-  <!--          <mat-grid-tile>-->
-  <!--            <p style="margin-bottom: 0px">Set satisfactory coverage?/theta?:</p>-->
-  <!--          </mat-grid-tile>-->
-  <mat-error id="objectiveError" style="margin-top: 2px;" *ngIf="objectiveNotChosen">Please select at least one objective</mat-error>
+
+  <mat-error id="objectiveError" style="margin-top: 2px;" *ngIf="objectiveNotChosen">Please select at least one
+    objective</mat-error>
 
   <!--        Select number of sensors-->
-  <mat-grid-list class="grid-tile-left-justify" cols="4" rowHeight="1:0.4">
-    <mat-grid-tile [colspan]="1">
-  <p style="margin-top: 12px;">Sensors:</p>
-    </mat-grid-tile>
-    <mat-grid-tile  [colspan]="3">
-  <div>
-    <mat-radio-group [(ngModel)]="sensorNumber" class="asCard">
-      <mat-radio-button disableRipple="true" *ngFor="let num of sensorNumbersAvailable" [value]="num">
-        <mat-card style="padding: 8px !important;">
-          <mat-card-content>
-            {{num}}
-          </mat-card-content>
-        </mat-card>
-      </mat-radio-button>
-    </mat-radio-group>
-  </div>
-    </mat-grid-tile>
+  
 
-  <!--        Select lower acceptable coverage-->
-<!--    <mat-grid-tile>-->
-<!--  <p style="margin-top: 12px;">Lowest acceptable network coverage:</p>-->
-<!--    </mat-grid-tile>-->
-<!--    <mat-grid-tile>-->
-<!--  <mat-form-field appearance="outline" floatLabel="always">-->
-<!--    <mat-label class="primaryText">Coverage</mat-label>-->
-<!--    &lt;!&ndash;                <mat-icon svgIcon="sensor1" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>&ndash;&gt;-->
-<!--    <mat-icon style="color: #6200eeff; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);" matPrefix fontSet="fa"-->
-<!--              fontIcon="fa-expand-arrows-alt"></mat-icon>-->
-<!--    <input name="acceptableCoverageGenetic" [step]="0.1" [min]="0.1" [max]="0.9" [(ngModel)]="theta"-->
-<!--           matInput type="number">-->
-<!--  </mat-form-field>-->
-<!--    </mat-grid-tile>-->
-<!--  </mat-grid-list>-->
+    <p style="margin-top: 12px;">Sensors:</p>
 
-<!--    Select theta-->
-      <mat-grid-tile  [colspan]="1">
-        <p style="margin-top: 12px;">Theta:<span class="infoIcon" (click)="openInfo('thetaChoice')"><mat-icon>info</mat-icon></span></p>
-      </mat-grid-tile>
-      <mat-grid-tile  [colspan]="3">
-        <div>
-          <mat-radio-group [(ngModel)]="theta" class="asCard">
-            <mat-radio-button disableRipple="true" *ngFor="let num of thetaNumbersAvailable" [value]="num">
-              <mat-card style="padding: 8px !important;">
-                <mat-card-content>
-                  {{num}}
-                </mat-card-content>
-              </mat-card>
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
-      </mat-grid-tile>
-  </mat-grid-list>
+    <div *ngFor="let num of sensorNumbersAvailable">
+      <label>
+        <input type="radio" [value]="num" [name]="sensorNumber" [(ngModel)]="sensorNumber">{{ num }}
+      </label>
+    </div>
+
+
+
+
+    <!--    Select theta-->
+    <p style="margin-top: 12px;">Theta:<span class="infoIcon"
+        (click)="openInfo('thetaChoice')"><mat-icon>info</mat-icon></span></p>
+    <div *ngFor="let tnum of thetaNumbersAvailable">
+      <label>
+        <input type="radio" [value]="tnum" [name]="theta" [(ngModel)]="theta">{{ tnum }}
+      </label>
+    </div>
+
+
+
+
   <!--        Submit genetic query-->
   <mat-card-actions align="end">
     <!--                  &lt;!&ndash;      todo reset form&ndash;&gt;-->
@@ -98,5 +69,5 @@
 
 
 
-<!--</mat-card>-->
+  <!--</mat-card>-->
 </mat-expansion-panel>

@@ -9,7 +9,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 @Component({
   selector: 'app-genetic-algorithm-results',
   templateUrl: './genetic-algorithm-results.component.html',
-  styleUrls: ['./genetic-algorithm-results.component.scss']
+  styleUrls: ['./genetic-algorithm-results.component.css']
 })
 export class GeneticAlgorithmResultsComponent implements OnInit {
   @Input() queryChoices: any;

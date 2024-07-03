@@ -67,7 +67,7 @@ import {OptimisationService} from "../optimisation.service";
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
+  styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnDestroy, OnInit {
   // @Output() map$: EventEmitter<Map> = new EventEmitter;
@@ -242,6 +242,7 @@ export class MapComponent implements OnDestroy, OnInit {
   }
 
   
+  
 
   
   ngOnDestroy() {
@@ -255,7 +256,7 @@ export class MapComponent implements OnDestroy, OnInit {
   onMapReady(map: Map) {
     // console.log('map ready');
     // const startMapReady = performance.now();
-    // this.map = map;
+    this.map = map;
     // tell any waiting components that the map has loaded
     this.mapReady = true;
     // this.map$.emit(map);
@@ -271,9 +272,9 @@ export class MapComponent implements OnDestroy, OnInit {
     }
     // disable map events on overlay content
     const optCard = document.getElementById('no-scroll');
-    if (optCard) {
-      L.DomEvent.disableScrollPropagation(optCard);
-    }
+    console.log(optCard)
+    L.DomEvent.disableScrollPropagation(optCard);
+    L.DomEvent.disableClickPropagation(optCard);  
   
     const finishMapReady = performance.now();
     // console.log('mapReadyMethod ' + (finishMapReady - startMapReady));

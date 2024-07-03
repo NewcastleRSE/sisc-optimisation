@@ -65,8 +65,7 @@ export class GeneticAlgorithmConfigurationComponent implements OnInit {
 
 
   submitGeneticQuery() {
-    console.log(this.sensorNumber)
-    console.log(this.theta)
+    
     if (this.selectedObjectives.length === 0) {
       // error as have to select at least one objective
       this.objectiveNotChosen  = true;

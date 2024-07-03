@@ -105,6 +105,7 @@ this.networkToggleState = false;
 
   // function triggered my parent map component when user submits query
   createGraph(choices: any) {
+    console.log('create graph')
     this.successfullyLoadedJson = true;
     this.queryChoices = choices;
 
@@ -117,6 +118,7 @@ this.networkToggleState = false;
         this.openExpansionPanel();
         // let parent know to display
         this.geneticResultsReady.emit(true);
+        console.log('results ready')
       }
 
     });

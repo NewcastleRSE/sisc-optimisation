@@ -1,1 +1,395 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.map {
+  height: 100%;
+  padding: 0;
+}
+
+.sup {
+    vertical-align: super !important;
+  }
+  
+  /* .primaryText {
+    color: mat-color($my-accent) !important;
+  } */
+  
+  /* // MAP */
+  .map-container {
+    position: relative;
+    /* //margin: 30px; */
+    height: 100%;
+    width: 100%;
+  }
+  
+  .map-frame {
+    border: 2px solid black;
+    height: 100%;
+  }
+  
+  #map {
+    height: 80%;
+  
+  }
+  
+  
+  /* // BUTTONS */
+  .leaflet-top button {
+    margin: 2px;
+  }
+  
+  
+  .button-flex-container button {
+    margin: 2px;
+    position: relative;
+  }
+  
+  
+  .button-flex-container {
+    display: flex;
+    position: absolute;
+    top: 0;
+    margin-top: 3px;
+    margin-left: 3px;
+    width: 100vw;
+  }
+  
+  .button-flex-container button:nth-child(4) {
+    margin-left:auto;
+    margin-right: 10px;
+  }
+  
+  
+  
+  
+  
+  
+  /* //SLIDERS
+  // Style ngx-slider to echo material slider */
+  ::ng-deep {
+    /* // markers */
+    .ngx-slider .ngx-slider-pointer {
+      background-color: #f59342 !important;
+      width: 18px!important;
+      height: 18px!important;
+      top: -8px!important;
+      cursor: move!important; /* fallback if grab cursor is unsupported */
+      cursor: grab!important;
+      cursor: -moz-grab!important;
+      cursor: -webkit-grab!important;
+    }
+  
+    .ngx-slider-pointer:active {
+      cursor: grabbing!important;
+      cursor: -moz-grabbing!important;
+      cursor: -webkit-grabbing!important;
+    }
+  
+  /* // remove central dot on marker */
+    .ngx-slider .ngx-slider-pointer:after {
+     display: none;
+    }
+  /* // slider selected bar */
+    .ngx-slider .ngx-slider-selection {
+      background:  #f59342 !important;
+    }
+  
+    .ngx-slider-floor {
+      display: none!important;
+    }
+    .ngx-slider-ceil {
+      display: none!important;
+    }
+  
+    .ngx-slider-bar {
+      height: 2px !important;
+    }
+  
+    .placeSlider .ngx-slider-bubble::after {
+      content: '%';
+    }
+  }
+  
+  #optimisationQueryCard .mat-form-field {
+    max-width: 107px;
+  }
+  
+  ::ng-deep {
+     .grid-tile-left-justify .mat-figure {
+       justify-content: start!important;
+     }
+  }
+  
+  
+  
+  .list-horizontal {
+    display: flex;
+    flex-direction: row;
+  
+  }
+  .legendItem  {
+  
+  }
+  
+  /* //.mat-chip-legend .mat-nav-list .mat-list-item {
+  //  cursor: default !important;
+  //} */
+  
+  .roundedButton {
+    border-radius: 20px !important;
+    overflow-x: hidden !important;
+    white-space: pre-wrap !important;
+    max-width: 500px !important;
+  }
+  
+  .transparentBtn {
+    padding: 0 !important;
+    background-color: transparent !important;;
+    background-repeat: no-repeat;
+    border: none;
+    overflow: hidden;
+    outline: none;
+  }
+  
+  .roundedButtonNoHiddenOverflow {
+    border-radius: 20px !important;
+    white-space: pre-wrap !important;
+    max-width: 500px !important;
+  }
+  
+  .defaultCursor {
+    cursor: default !important;
+  }
+  
+  
+  /* // markers */
+  #airQualCluster {
+      background: lightblue;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+  }
+  
+  #airQualCluster {
+    background: lightblue;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+  
+  /* // loading sample sensor spinner */
+  @keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+  
+  .spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
+  }
+  
+  .hiddenDiv {
+    visibility: hidden;
+  }
+  
+  /* // darker overlay so that loading spinner text stands out */
+  ::ng-deep {
+    .cdk-overlay-dark-backdrop {
+      background: rgba(0, 0, 0, 0.5);;
+    }
+  }
+  
+
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* // fix dropdown issue on safari, apparently */
+input {
+  -webkit-user-select: all !important;
+}
+
+/* // select dropdown */
+#LASelection .mat-form-field-flex {
+  background-color: white !important;
+  padding-top: 0.15em !important;
+}
+#LASelection .mat-form-field-appearance-fill .mat-form-field-infix {
+  padding-bottom: 0.25em !important;
+}
+
+/* // data layer chips stack
+//.dataLayers .mat-chip-list-stacked .mat-chip-list-wrapper {
+//  align-items: flex-end !important;
+//}
+//.dataLayers  .mat-chip-list-wrapper {
+//  align-items: flex-end !important;
+//}
+//.legendItem div.mat-list-item-content {
+//  padding: 0 4px !important;
+//} */
+
+
+/* // override leaflet marker cluster formatting */
+.airQualCluster {
+  /* //background: lightblue;
+  //border-radius: 50%; */
+  /* (A) PERCENTAGE WIDTH & BORDER RADIUS */
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+
+  /* (B) BACKGROUND COLOR */
+  background: #bcd6ff;
+
+  /* (C) NECESSARY TO POSITION TEXT BLOCK */
+  line-height: 0;
+  position: relative;
+
+}
+
+/* (D) MATCH HEIGHT */
+.airQualCluster::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+/* (E) TEXT BLOCK */
+.airQualCluster-txt {
+  /* (E1) CENTER TEXT IN CIRCLE */
+  position: absolute;
+  bottom: 50%;
+  width: 100%;
+  text-align: center;
+
+  /* (E2) THE FONT - NOT REALLY IMPORTANT */
+  font-family: arial, sans-serif;
+  font-weight: bold;
+}
+/* // urban observatory sensor cluster */
+.uoSensorCluster{
+  width: 24px !important;
+  height: 24px !important;
+  margin-left: -12px ;
+  margin-top: -12px;
+  border-radius: 18px;
+  border: 2px solid #215A8F;
+  text-align: center;
+  color: #215A8F;
+  background-color: #fff;
+  font-size: 12px;
+}
+
+
+/* // school sensor cluster */
+.schoolSensorCluster{
+  width: 20px !important;
+  height: 20px !important;
+  margin-left: -12px ;
+  margin-top: -12px;
+  border-radius: 18px;
+  border: 2px solid #DB2518;
+  text-align: center;
+  color: #DB2518;
+  background-color: #fff;
+  font-size: 12px;
+}
+
+.leaflet-div-icon {
+  border: none !important;
+}
+
+
+
+/* // sensor from optimisation query */
+.sensorCluster{
+  width: 24px !important;
+  height: 24px !important;
+  margin-left: -12px ;
+  margin-top: -12px;
+  border-radius: 18px;
+  border: 2px solid #6200eeff;
+  text-align: center;
+  color: #6200eeff;
+  background-color: #fff;
+  font-size: 12px;
+}
+
+.some-div {
+  position: absolute;
+  bottom: 7px;
+  left: 7px;
+  overflow-y: auto;
+}
+
+#parent-div {
+  background-color: lightgreen;
+  height: 400px;
+  width: 200px;
+  z-Index: 998;
+}
+
+#no-scrolling-clicking {
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+  z-index: 999;
+  background-color: hotpink;
+  width: 150px;
+  height: 300px;
+}
+
+mat-grid-tile figure {
+  margin-top: 4px !important;
+}
+
+.sup {vertical-align: top; position: relative; top: -0.5em; font-size: x-small }
+
+.transparent .mat-dialog-container {
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0.0);
+}
+
+/* // override padding on bottom of cards */
+.mat-card-actions {
+  margin-bottom: 0 !important;
+}
+
+
+.infoIcon {
+  position: relative;
+  top: 0.1em;
+  left: 0.1em;
+  cursor: pointer;
+  .material-icons {
+    font-size: 20px;
+  }
+  color: black;
+}
+
+
+
+/* // style tutorial dialogs */
+.tutorialDialog > mat-dialog-container {
+  border: 5px solid #00BFA5 !important;
+  border-radius: 9px;
+}
+
+.currentWalkthroughFocus {
+  border: 5px solid #00BFA5 !important;
+}
+
+

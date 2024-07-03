@@ -1,0 +1,12 @@
+<div id="tutorialDialog">
+<div mat-dialog-content     >
+  <p>{{instructions}}</p>
+</div>
+<div mat-dialog-actions>
+  <button *ngIf="final" mat-flat-button id="finishBtn" color="primary" (click)="endTutorial()" >Finish</button>
+    <button *ngIf="!final" mat-flat-button id="exitBtn"  color="primary" (click)="endTutorial()" >Exit</button>
+  <button *ngIf="!final" mat-flat-button id="nextBtn" color="primary" (click)="nextStep(stepNumber + 1)" >Next
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
+</div>
+</div>

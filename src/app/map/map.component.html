@@ -1,0 +1,93 @@
+<!-- MAP -->
+<!-- <div class="map-container" id="map" leaflet
+   
+     (leafletMapReady)="onMapReady($event)"
+     (leafletMapZoomEnd)="onMapZoomEnd($event)"> -->
+
+     <div class="map"
+     leaflet
+     [leafletOptions]="options">
+
+
+  <div id="no-scroll">
+<!--     TOP LEFT-->
+    <div class="leaflet-top leaflet-left" style="pointer-events: initial;">
+<!--      <button mat-raised-button color="primary" (click)="toggleOptimisationCard()">OPTIMISATION QUERY-->
+<!--        <mat-icon matPrefix fontSet="fa" fontIcon="fa-caret-down" style="margin-top:4px;"></mat-icon>-->
+<!--      </button>-->
+      <!--    todo sample sensor placement-->
+      <!--    <button mat-raised-button color="primary" (click)="testScenarioClicked()" [class.spinner]="testScenarioLoading" [disabled]="testScenarioLoading">Sample sensor placement</button>-->
+      <!--    <button mat-raised-button color="primary" (click)="testScenarioClicked()" [class.spinner]="testScenarioLoading" [disabled]="testScenarioLoading">Sample sensor placement</button>-->
+
+      <!--      GENETIC ALGORITHM QUERY CARD -->
+      <div style="padding-bottom: 10px;" id="sensorQueryStep">
+          <app-genetic-algorithm-configuration (queryDataToSubmit)="submitGeneticQuery($event)"></app-genetic-algorithm-configuration>
+      </div>
+
+      <!--       GENETIC ALGORITHM RESULTS-->
+      <div [ngClass]="{'hiddenDiv' : !viewingGeneticResults}">
+        <app-genetic-algorithm-results (toggleNetwork)="toggleNetwork($event)" (errorHandler)="errorGeneratingGeneticAlgorithmResults($event)" (outputAreasToPlot)="plotNetwork($event)" (geneticResultsReady)="geneticResultsReady()"  [queryChoices]="geneticQueryChoices"></app-genetic-algorithm-results>
+      </div>
+
+
+
+    </div>
+
+<!--    BOTTOM RIGHT-->
+    <app-footer (openInfo)="openInfo()" (startTutorial)="openTutorialStep(1)"></app-footer>
+
+
+
+
+    <!--  TOP RIGHT BUTTONS-->
+    <div class="leaflet-top leaflet-right " style="pointer-events: auto;">
+      <!--    <mat-chip-list style="display:inline-block;">-->
+      <!--      <mat-chip *ngIf="localAuthority === 'ncl'">Newcastle</mat-chip>-->
+      <!--      <mat-chip *ngIf="localAuthority === 'gates'">Gateshead</mat-chip>-->
+      <!--    </mat-chip-list>-->
+
+<!-- temp remove -->
+      <!-- <button [disabled]="networkBeingDisplayed()"  mat-raised-button color="primary" [matMenuTriggerFor]="LAMenu" id="LAStep">
+        <span *ngIf="localAuthority === 'ncl'"><mat-icon matPrefix fontSet="fa" fontIcon="fa-map-marker-alt" style="margin-top:4px;"></mat-icon>Newcastle</span>
+        <span *ngIf="localAuthority === 'gates'"><mat-icon matPrefix fontSet="fa" fontIcon="fa-map-marker-alt" style="margin-top:4px;"></mat-icon>Gateshead</span>
+        <mat-icon matPrefix fontSet="fa" fontIcon="fa-caret-down" style="margin-top:4px;">
+        </mat-icon>
+      </button> -->
+
+
+      <!-- #enddocregion mat-menu-trigger-for -->
+      <mat-menu #LAMenu="matMenu" >
+        <!--      exclude current selection from list-->
+        <button value="ncl" *ngIf="localAuthority === 'gates'" (click)="selectLA('ncl')" mat-menu-item>Newcastle upon Tyne</button>
+        <button value="gates" *ngIf="localAuthority === 'ncl'" (click)="selectLA('gates') "mat-menu-item>Gateshead</button>
+      </mat-menu>
+
+<!--      todo change arrow direction when data layers are open-->
+      <!-- <button  id="dataLayersBtnStep"
+              mat-raised-button color="primary" (click)="toggleDataLayersChips()">DATA LAYERS
+        <mat-icon matPrefix fontSet="fa" fontIcon="fa-caret-down" style="margin-top:4px;">
+        </mat-icon>
+      </button>
+    </div> -->
+
+    <!--    <button style="width: 200px;" class="roundedButton" mat-flat-button color="accent">Disability and another long title to test buttons</button>-->
+    <!--    <button mat-flat-button color="accent" style="width:40px;"><div style="height: 100%">Some really long text that is more than 20px</div></button>-->
+
+    <!--  Data layers-->
+    <!-- <div id="dataLayersStep" [ngClass]="{'hiddenDiv' : !dataLayersChipsVisible}" class="leaflet-top leaflet-right "
+         style="pointer-events: auto; margin-top: 70px; ">
+      <app-data-layers   [map]="map" (loadedData)="loadedData()" (oaDataLoaded)="outputAreaDataLoaded($event)" [localAuthority]="localAuthority"></app-data-layers>
+
+      </div>
+
+
+    </div> -->
+
+  </div>
+
+
+
+
+
+
+

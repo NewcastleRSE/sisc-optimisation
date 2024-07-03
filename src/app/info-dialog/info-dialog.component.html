@@ -1,0 +1,27 @@
+<div id="welcomeDialog">
+<!-- <link rel="stylesheet" href="../app.component.css"> -->
+<h1 mat-dialog-title>Air Quality Sensor Placement Decision Support Tool</h1>
+<div  mat-dialog-content>
+  <p>This website is part of the
+    <a href="https://www.turing.ac.uk/research/research-projects/spatial-inequality-and-smart-city">
+      Spatial Inequality and the Smart City</a> project.
+    </p>
+  <p>The site has two functions: data visualisation and sensor placement decision support.
+    Users can view population characteristics and spatial data that may contribute to negative air quality
+    hazards, exposure and vulnerability. Users can also define priority groups to view an optimal sensor placement.
+    Currently the site covers Newcastle-upon-Tyne and Gateshead Local Authority areas. This tool is best accessed through a
+    laptop or computer.
+  </p>
+    <p>Start the site walkthrough to learn more by clicking <mat-icon style="vertical-align: -6px !important;">directions_walk</mat-icon> at any time.
+    </p>
+  <p>Click on <mat-icon style="vertical-align: -6px !important;">info</mat-icon> for more information about a feature.</p>
+
+</div>
+<div mat-dialog-actions>
+
+  <button id="startTutorialBtn" mat-mini-fab  (click)="startTutorial()" ><mat-icon>directions_walk</mat-icon></button>
+<button id="enterSiteBtn" style="float: left;" mat-button  color="primary" (click)="close()" >Enter site
+  <mat-icon>keyboard_arrow_right</mat-icon>
+</button>
+</div>
+</div>

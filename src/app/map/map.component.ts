@@ -1,11 +1,6 @@
 import {
-  AfterViewInit,
-  CUSTOM_ELEMENTS_SCHEMA,
   Component,
-  ElementRef,
   EventEmitter,
-  Inject,
-  Input,
   NgZone,
   OnDestroy,
   OnInit,
@@ -15,18 +10,13 @@ import {
 
 import {
   Map,
-  Control,
-  DomUtil,
-  ZoomAnimEvent,
-  Layer,
   MapOptions,
   tileLayer,
   latLng,
   LeafletEvent,
-  circle,
-  polygon,
   icon,
-  LeafletMouseEvent, LatLng
+   LatLng,
+ FeatureGroup
 } from 'leaflet';
 
 import * as L from 'leaflet';
@@ -59,6 +49,7 @@ import {
 import {WalkthroughDialogService} from '../walkthrough-dialog.service';
 
 import {OptimisationService} from "../optimisation.service";
+import { HttpClient } from '@angular/common/http';
 
 
 //
@@ -109,7 +100,7 @@ export class MapComponent implements OnDestroy, OnInit {
 
 
   currentCoverageMap: any;
-  currentNetwork: any;
+  currentNetwork;
   occupiedOAs: any[] = [];
   currentOptimisedData: any;
   currentNetworkMarkers: L.Marker<any>[] = [];
@@ -207,7 +198,7 @@ export class MapComponent implements OnDestroy, OnInit {
   spinnerOverlay!: { close: () => void; };
 
   constructor(
-    
+    private http: HttpClient,
     private matDialog: MatDialog,
     private snackBar: MatSnackBar,
     private zone: NgZone,
@@ -235,7 +226,6 @@ export class MapComponent implements OnDestroy, OnInit {
 
     this.oninit = performance.now();
 
-
     // new code to skip waiting for data
     // open info dialog
     this.openInfo();
@@ -254,9 +244,17 @@ export class MapComponent implements OnDestroy, OnInit {
   }
 
   onMapReady(map: Map) {
-    // console.log('map ready');
-    // const startMapReady = performance.now();
     this.map = map;
+
+    // read in geojson files
+    this.http.get('../../assets/outputareas/ncl.geojson').subscribe((data) => {
+      this.oaNcl = data
+  })
+   
+  this.http.get('../../assets/outputareas/gates.geojson').subscribe((data) => {
+    this.oaGates = data;
+})
+
     // tell any waiting components that the map has loaded
     this.mapReady = true;
     // this.map$.emit(map);
@@ -272,13 +270,9 @@ export class MapComponent implements OnDestroy, OnInit {
     }
     // disable map events on overlay content
     const optCard = document.getElementById('no-scroll');
-    console.log(optCard)
+  
     L.DomEvent.disableScrollPropagation(optCard);
     L.DomEvent.disableClickPropagation(optCard);  
-  
-    const finishMapReady = performance.now();
-    // console.log('mapReadyMethod ' + (finishMapReady - startMapReady));
-    // console.log('dataCreationMethod ' + (dataLayersCreated - dataLayersStarted));
 
 
     if (this.map) {
@@ -378,13 +372,15 @@ export class MapComponent implements OnDestroy, OnInit {
   }
 
   // ----- Genetic algorithm
-  submitGeneticQuery(d: { sensorNumber: any; objectives: any; acceptableCoverage: any; localAuthority?: string; }) {
+  submitGeneticQuery(d) {
     // listen for user submitting query in greedy algorithm config child component
     // clear coverage map and sensor network from map and memory
-    if (this.map.hasLayer(this.currentNetwork)) {
+    
+  
+    if (this.currentNetwork && this.map.hasLayer(this.currentNetwork)) {
       this.map.removeLayer(this.currentNetwork);
     }
-    if (this.map.hasLayer(this.currentCoverageMap)) {
+    if (this.currentCoverageMap && this.map.hasLayer(this.currentCoverageMap)) {
       this.map.removeLayer(this.currentCoverageMap);
     }
 
@@ -411,7 +407,7 @@ export class MapComponent implements OnDestroy, OnInit {
   }
 
   hideCentroids() {
-    if (this.map.hasLayer(this.centroids)) {
+    if (this.centroids && this.map.hasLayer(this.centroids)) {
       this.map.removeLayer(this.centroids)
     }
   }
@@ -445,10 +441,10 @@ export class MapComponent implements OnDestroy, OnInit {
     this.occupiedOAs = [];
 
     // if there is a network already plotted, remove it
-    if (this.map.hasLayer(this.currentNetwork)) {
+    if (this.currentNetwork && this.map.hasLayer(this.currentNetwork)) {
       this.map.removeLayer(this.currentNetwork);
     }
-    if (this.map.hasLayer(this.currentCoverageMap)) {
+    if (this.currentCoverageMap && this.map.hasLayer(this.currentCoverageMap)) {
       this.map.removeLayer(this.currentCoverageMap);
     }
 
@@ -537,7 +533,7 @@ export class MapComponent implements OnDestroy, OnInit {
       //this.hideCentroids();
 
       // turn off coverage map until loaded new coverage
-      if (this.map.hasLayer(this.currentCoverageMap)) {
+      if (this.currentCoverageMap && this.map.hasLayer(this.currentCoverageMap)) {
         this.map.removeLayer(this.currentCoverageMap);
       }
 
@@ -867,8 +863,9 @@ export class MapComponent implements OnDestroy, OnInit {
   }
 
   createNetworkCoverageMap(coverageList: any[], localAuthority: string) {
+  
     // todo delete current network coverage
-    if (this.map.hasLayer(this.currentCoverageMap)) {
+    if (this.currentCoverageMap && this.map.hasLayer(this.currentCoverageMap)) {
       this.map.removeLayer(this.currentCoverageMap);
     }
 
@@ -878,6 +875,7 @@ export class MapComponent implements OnDestroy, OnInit {
 
     // use correct output area map for selected local authority
     let coverageMap;
+   
     //  _layers > feature > properties > code
     if (localAuthority === 'ncl') {
       coverageMap = _.cloneDeep(this.oaNcl);
@@ -885,17 +883,14 @@ export class MapComponent implements OnDestroy, OnInit {
       coverageMap = _.cloneDeep(this.oaGates);
     }
 
-    // set colour of OA according to coverage
-    coverageMap.eachLayer((layer: {
-        feature: { properties: { code: any; }; }; setStyle: (arg0: {
-          fillColor: string; fill: boolean;
-          // stroke: false,
-          fillOpacity: number; color: string; weight: number;
-        }) => void;
-      }) => {
+    
+    coverageMap = L.geoJSON(coverageMap)
 
-      const match = coverageList.find((o: { code: any; }) => {
-        return o.code === layer.feature.properties.code;
+    // set colour of OA according to coverage
+    coverageMap.eachLayer((layer) => {
+
+      const match = coverageList.find(o => {
+        return o.code === layer.feature.properties.oa11cd;
       });
       if (match) {
         const coverage = match.coverage;
@@ -942,13 +937,13 @@ export class MapComponent implements OnDestroy, OnInit {
   }
 
   hideGeneticSensors() {
-    if (this.map.hasLayer(this.currentNetwork)) {
+    if (this.currentNetwork && this.map.hasLayer(this.currentNetwork)) {
       this.map.removeLayer(this.currentNetwork);
     }
   }
 
   hideGeneticCoverage() {
-    if (this.map.hasLayer(this.currentCoverageMap)) {
+    if (this.currentCoverageMap && this.map.hasLayer(this.currentCoverageMap)) {
       this.map.removeLayer(this.currentCoverageMap);
     }
   }

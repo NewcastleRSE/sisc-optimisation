@@ -105,7 +105,7 @@ this.networkToggleState = false;
 
   // function triggered my parent map component when user submits query
   createGraph(choices: any) {
-    console.log('create graph')
+   
     this.successfullyLoadedJson = true;
     this.queryChoices = choices;
 

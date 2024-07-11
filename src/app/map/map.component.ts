@@ -898,10 +898,9 @@ export class MapComponent implements OnDestroy, OnInit {
         layer.setStyle({
           fillColor: colour,
           fill: true,
-          // stroke: false,
           fillOpacity: 0.6,
           color: '#ff7800',
-          weight: 1
+          weight: 0.5
         });
       } else {
         console.log('error getting coverage from ');
@@ -911,7 +910,6 @@ export class MapComponent implements OnDestroy, OnInit {
     });
 
     this.currentCoverageMap = coverageMap;
-    console.log(this.currentCoverageMap)
     this.map.addLayer(this.currentCoverageMap);
 
   }

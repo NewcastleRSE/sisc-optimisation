@@ -16,3 +16,7 @@
 .left-align-tile > ::ng-deep figure {
   justify-content: flex-start !important;
 }
+
+#sensorResultsStep {
+  max-width: 600px !important;
+}

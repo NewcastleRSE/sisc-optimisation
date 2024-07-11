@@ -19,20 +19,23 @@
   <p style="font-size: x-small">Note that this network will have a different number of markers to the rest of the
     networks.</p>
 
-  <!--  filter networks-->
+
+
+
+
   <mat-grid-list cols="3" rowHeight="1:0.35">
     <mat-grid-tile id="filterPlacementsStep" rowspan="2">
-      <mat-form-field style="max-width: 150px; padding-right: 1em;" appearance="outline">
+      <mat-form-field style="max-width: 200px; padding-right: 1em;" appearance="outline">
         <mat-label>Objective to filter</mat-label>
         <select (change)="selectGroupPoints()" matNativeControl [(ngModel)]="filterObjective">
           <option value="No">No filtering</option>
           <option *ngFor="let obj of queryChoices.objectives" value="{{obj}}">{{obj}}</option>
         </select>
-    <mat-hint>You can select an objective and minimum coverage here</mat-hint>
+    
   </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile rowspan="2" class="left-align-tile">
-  <mat-form-field  style="max-width: 100px;" appearance="outline" floatLabel="always">
+  <mat-form-field  style="max-width: 150px;" appearance="outline" floatLabel="always">
 <!--    todo label is cut off so needs fixing-->
     <mat-label class="primaryText">Min coverage</mat-label>
     <!--                <mat-icon svgIcon="sensor1" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
@@ -45,23 +48,24 @@
     <mat-grid-tile rowspan="1">
   <button [disabled]="selectedPointId === undefined"  id="viewNetworkBtn" mat-raised-button color="primary" (click)="viewNetworkOnMap()">View network on map</button>
     </mat-grid-tile>
-    <mat-grid-tile rowspan="1">
+    <!-- <mat-grid-tile rowspan="1">
       <mat-slide-toggle color="primary"  [disabled]="!showingNetworkOnMap" [checked]="networkToggleState" (change)="toggleNetworkFromMap($event)">Show network</mat-slide-toggle>
-    </mat-grid-tile>
+    </mat-grid-tile> -->
   </mat-grid-list>
 
-  <button class="roundedButton defaultCursor" mat-stroked-button *ngIf="showingNetworkOnMap" >
-    <div style="display: flex; flex-direction: row;" class="list-horizontal">
+
+    <div *ngIf="showingNetworkOnMap" style="display: flex; flex-direction: row;" class="list-horizontal">
       <div class="legendItem" style="margin-top: 5px;">Output area coverage:</div>
-      <div class="legendItem" *ngFor="let item of outputAreaCoverageLegend">
-        <mat-icon matPrefix fontSet="fa" fontIcon="fa-circle"
-                  style="margin-top:8px; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"
-                  [style.color]="item.colour"></mat-icon>
+      <div class="legendItem m-2" *ngFor="let item of outputAreaCoverageLegend">
+
+        <svg  [style.color]="item.colour" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=currentColor class="size-6">
+          <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm6-2.438c0-.724.588-1.312 1.313-1.312h4.874c.725 0 1.313.588 1.313 1.313v4.874c0 .725-.588 1.313-1.313 1.313H9.564a1.312 1.312 0 0 1-1.313-1.313V9.564Z" clip-rule="evenodd" />
+        </svg>
         <span style="font-size: small">{{item.title}}</span>
       </div>
 
     </div>
-  </button>
+
 
   <mat-list>
     <mat-list-item style="font-size: small">

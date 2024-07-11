@@ -430,7 +430,7 @@ export class MapComponent implements OnDestroy, OnInit {
 
   }
 
-  async plotNetwork(data: { coverage: any; localAuthority: any; outputAreas: any; }) {
+  async plotNetwork(data) {
 
 
     // save infomation for use in user defined network

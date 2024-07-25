@@ -489,6 +489,8 @@ temp.forEach((m) => {
     if (this.currentCoverageMap && this.map.hasLayer(this.currentCoverageMap)) {
       this.map.removeLayer(this.currentCoverageMap);
     }
+    this.hideCentroids();
+
 
     this.createNetworkCoverageMap(data.coverage, data.localAuthority);
 
@@ -1041,9 +1043,10 @@ temp.forEach((m) => {
   }
 
   selectLA(la: string) {
+
     this.localAuthority = la;
-    
-    // todo what happens here when viewing a sensor placement?
+   
+   
   }
 
 

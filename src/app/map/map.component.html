@@ -43,27 +43,17 @@
 
     <!--  TOP RIGHT BUTTONS-->
     <div class="leaflet-top leaflet-right " style="pointer-events: auto;">
-      <!--    <mat-chip-list style="display:inline-block;">-->
-      <!--      <mat-chip *ngIf="localAuthority === 'ncl'">Newcastle</mat-chip>-->
-      <!--      <mat-chip *ngIf="localAuthority === 'gates'">Gateshead</mat-chip>-->
-      <!--    </mat-chip-list>-->
-
-<!-- temp remove -->
-      <!-- <button [disabled]="networkBeingDisplayed()"  mat-raised-button color="primary" [matMenuTriggerFor]="LAMenu" id="LAStep">
-        <span *ngIf="localAuthority === 'ncl'"><mat-icon matPrefix fontSet="fa" fontIcon="fa-map-marker-alt" style="margin-top:4px;"></mat-icon>Newcastle</span>
-        <span *ngIf="localAuthority === 'gates'"><mat-icon matPrefix fontSet="fa" fontIcon="fa-map-marker-alt" style="margin-top:4px;"></mat-icon>Gateshead</span>
-        <mat-icon matPrefix fontSet="fa" fontIcon="fa-caret-down" style="margin-top:4px;">
-        </mat-icon>
-      </button> -->
+      
 
 
-      <!-- #enddocregion mat-menu-trigger-for -->
-      <mat-menu #LAMenu="matMenu" >
-        <!--      exclude current selection from list-->
-        <button value="ncl" *ngIf="localAuthority === 'gates'" (click)="selectLA('ncl')" mat-menu-item>Newcastle upon Tyne</button>
-        <button value="gates" *ngIf="localAuthority === 'ncl'" (click)="selectLA('gates') "mat-menu-item>Gateshead</button>
-      </mat-menu>
 
+
+
+
+         <button mat-raised-button color="primary">
+<span (click)="selectLA('ncl')" *ngIf="localAuthority !== 'ncl'">Change to Newcastle</span> 
+<span (click)="selectLA('gates')" *ngIf="localAuthority !== 'gates'">Change to Gateshead</span> 
+         </button>
 <!--      todo change arrow direction when data layers are open-->
       <!-- <button  id="dataLayersBtnStep"
               mat-raised-button color="primary" (click)="toggleDataLayersChips()">DATA LAYERS

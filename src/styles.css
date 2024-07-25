@@ -12,6 +12,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding: 0;
 }
 
+.purple {
+  fill: #673ab7;
+}
+
 .sup {
     vertical-align: super !important;
   }
@@ -361,11 +365,19 @@ mat-grid-tile figure {
   margin-top: 4px !important;
 }
 
+#dialog {
+  padding: 20px !important
+}
+
 .sup {vertical-align: top; position: relative; top: -0.5em; font-size: x-small }
 
 .transparent .mat-dialog-container {
   box-shadow: none;
   background: rgba(0, 0, 0, 0.0);
+}
+
+.mat-mdc-dialog-container {
+  padding: 20px;
 }
 
 /* // override padding on bottom of cards */

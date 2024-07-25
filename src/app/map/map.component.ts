@@ -21,6 +21,7 @@ import {
 
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
+import 'leaflet.markercluster/dist/leaflet.markercluster';
 
 // import * as nclcentroids from '../../assets/outputareas/ncl.json' ;
 // import * as gatescentroids from '../../assets/outputareas/gates.json';
@@ -187,7 +188,7 @@ export class MapComponent implements OnDestroy, OnInit {
   // sensor marker
   sensorMarker = L.divIcon({
     // html: '<i class="fa fa-bullseye fa-1x" style="color: #6200eeff; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);"></i>',
-    html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 fill-purple"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm6-2.438c0-.724.588-1.312 1.313-1.312h4.874c.725 0 1.313.588 1.313 1.313v4.874c0 .725-.588 1.313-1.313 1.313H9.564a1.312 1.312 0 0 1-1.313-1.313V9.564Z" clip-rule="evenodd" /></svg>',
+    html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 purple"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm6-2.438c0-.724.588-1.312 1.313-1.312h4.874c.725 0 1.313.588 1.313 1.313v4.874c0 .725-.588 1.313-1.313 1.313H9.564a1.312 1.312 0 0 1-1.313-1.313V9.564Z" clip-rule="evenodd" /></svg>',
     iconSize: [0, 0],
     className: 'sensorIcon'
   });
@@ -521,7 +522,7 @@ temp.forEach((m) => {
     }
 
 
-    console.log(markers)
+   
     // temporarily remove clusering as not working
     // const cluster = this.createMarkerCluster(markers, 'sensorCluster');
     // cluster.addLayer(markers);
@@ -1007,6 +1008,7 @@ temp.forEach((m) => {
     }
   }
 
+  // removing clustering markers due to need to update packages
   // createMarkerCluster(markers: any, clusterClassname: string) {
   //   return L.markerClusterGroup({
   //     showCoverageOnHover: false,

@@ -25,6 +25,7 @@ import { MapComponent } from './map/map.component';
 import { GeneticAlgorithmConfigurationComponent } from './genetic-algorithm-configuration/genetic-algorithm-configuration.component';
 import { GeneticAlgorithmResultsComponent } from './genetic-algorithm-results/genetic-algorithm-results.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
-    LeafletModule
+    LeafletModule,
+    FontAwesomeModule
   ],
   providers: [MatIconRegistry,
     {provide: ErrorHandler, useClass: ErrorService}],

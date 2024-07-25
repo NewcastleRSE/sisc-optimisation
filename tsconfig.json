@@ -9,6 +9,7 @@
     "noImplicitOverride": false,
     "strictNullChecks": false,
     "resolveJsonModule": true, 
+    "esModuleInterop": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": true,
@@ -28,6 +29,7 @@
       "dom"
     ]
   },
+  "include": ["src/assets/outputareas/gates.json", "src/assets/outputareas/ncl.json"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": false,

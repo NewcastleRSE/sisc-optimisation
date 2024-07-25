@@ -22,6 +22,9 @@ import {
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
 
+// import * as nclcentroids from '../../assets/outputareas/ncl.json' ;
+// import * as gatescentroids from '../../assets/outputareas/gates.json';
+
 // import 'leaflet/dist/images/marker-shadow.png';
 // import 'leaflet/dist/images/marker-icon.png';
 
@@ -39,6 +42,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 
 import {InfoDialogComponent} from '../info-dialog/info-dialog.component';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -75,6 +80,8 @@ export class MapComponent implements OnDestroy, OnInit {
     zoomControl: false
   };
 
+  faCoffee = faCoffee;
+
 
    private map!: L.Map
   
@@ -93,9 +100,9 @@ export class MapComponent implements OnDestroy, OnInit {
   oaGates: any;
   centroidsNcl: any[] = [];
   centroidsGates: any[] = [];
-  // keep track of centroids without oa codes as well as leaflet needs this for the closest marker function when snapping draggable marker to nearest centroid
-  centroidsNclLatLng: any;
-  centroidsGatesLatLng: any;
+  // keep track of centroids as leaflet latlngs as well as leaflet needs this for the closest marker function when snapping draggable marker to nearest centroid
+  centroidsNclLatLng: any[] = [];
+  centroidsGatesLatLng: any[] = [];
   centroids: any;
 
 
@@ -174,10 +181,14 @@ export class MapComponent implements OnDestroy, OnInit {
     shadowUrl: ''
   });
 
+  
+
+
   // sensor marker
   sensorMarker = L.divIcon({
-    html: '<i class="fa fa-bullseye fa-1x" style="color: #6200eeff; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);"></i>',
-    iconSize: [10, 10],
+    // html: '<i class="fa fa-bullseye fa-1x" style="color: #6200eeff; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);"></i>',
+    html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 fill-purple"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm6-2.438c0-.724.588-1.312 1.313-1.312h4.874c.725 0 1.313.588 1.313 1.313v4.874c0 .725-.588 1.313-1.313 1.313H9.564a1.312 1.312 0 0 1-1.313-1.313V9.564Z" clip-rule="evenodd" /></svg>',
+    iconSize: [0, 0],
     className: 'sensorIcon'
   });
 
@@ -255,6 +266,36 @@ export class MapComponent implements OnDestroy, OnInit {
     this.oaGates = data;
 })
 
+// load centroids from CSVs
+// this.centroidsNcl = nclcentroids
+// this.centroidsGates = gatescentroids
+
+this.http.get('../../assets/outputareas/ncl.json').subscribe((res) => {
+const temp = res as Array<any>;
+
+   // create list of leaflet latlngs to use for GeometryUtil.closest function and add field needed for formatting latlngs throughout the rest of the code
+temp.forEach((m) => {
+  if (m.lon === undefined) { console.log(m)}
+  const newObj = {lat: m.lat, lng: m.lon, latlng: {lat: m.lat, lng: m.lon}, oa11cd: m.oa11cd};
+  this.centroidsNcl.push(newObj);
+  this.centroidsNclLatLng.push([m.lat, m.lon]);
+});
+});
+
+this.http.get('../../assets/outputareas/gates.json').subscribe((res) => {
+  const temp = res as Array<any>;
+
+  // create list of leaflet latlngs to use for GeometryUtil.closest function and add field needed for formatting latlngs throughout the rest of the code
+temp.forEach((m) => {
+ if (m.lon === undefined) { console.log(m)}
+ const newObj = {lat: m.lat, lng: m.lon, latlng: {lat: m.lat, lng: m.lon}, oa11cd: m.oa11cd};
+ this.centroidsGates.push(newObj);
+ this.centroidsGatesLatLng.push([m.lat, m.lon]);
+});
+  
+});
+
+
     // tell any waiting components that the map has loaded
     this.mapReady = true;
     // this.map$.emit(map);
@@ -294,18 +335,18 @@ export class MapComponent implements OnDestroy, OnInit {
 
   }
 
-  // get output area data from child component and save here to use in the future once create a coverage map for a sensor placement
-  outputAreaDataLoaded(d: { ncl: { geojson: any; centroids: any; centroidsLatLng: any; }; gates: { geojson: any; centroids: any; centroidsLatLng: any; }; }) {
-    this.oaNcl = d.ncl.geojson;
-    this.oaGates = d.gates.geojson;
-    this.centroidsNcl = d.ncl.centroids;
-    this.centroidsGates = d.gates.centroids;
-    this.centroidsNclLatLng = d.ncl.centroidsLatLng;
-    this.centroidsGatesLatLng = d.gates.centroidsLatLng;
+  // // get output area data from child component and save here to use in the future once create a coverage map for a sensor placement
+  // outputAreaDataLoaded(d: { ncl: { geojson: any; centroids: any; centroidsLatLng: any; }; gates: { geojson: any; centroids: any; centroidsLatLng: any; }; }) {
+  //   this.oaNcl = d.ncl.geojson;
+  //   this.oaGates = d.gates.geojson;
+  //   this.centroidsNcl = d.ncl.centroids;
+  //   this.centroidsGates = d.gates.centroids;
+  //   this.centroidsNclLatLng = d.ncl.centroidsLatLng;
+  //   this.centroidsGatesLatLng = d.gates.centroidsLatLng;
 
-    // test plotting a sample network
-    // this.plotNetwork(this.tempNetwork);
-  }
+  //   // test plotting a sample network
+  //   // this.plotNetwork(this.tempNetwork);
+  // }
 
   onMapZoomEnd(e: LeafletEvent) {
     this.zoom = e.target.getZoom();
@@ -415,12 +456,12 @@ export class MapComponent implements OnDestroy, OnInit {
   plotCentroids() {
     const markers = L.layerGroup();
     if (this.currentOptimisedData.localAuthority === 'ncl') {
-      this.centroidsNcl.forEach((m: { latlng: any; }) => {
+      this.centroidsNcl.forEach((m) => {
         //  L.marker(m, {icon: this.centroidMarker}).addTo(this.map);
         markers.addLayer(L.marker(m.latlng, {icon: this.centroidMarker}));
       });
     } else {
-      this.centroidsGates.forEach((m: { latlng: any; }) => {
+      this.centroidsGates.forEach((m) => {
         //  L.marker(m, {icon: this.centroidMarker}).addTo(this.map);
         markers.addLayer(L.marker(m.latlng, {icon: this.centroidMarker}));
       });
@@ -476,18 +517,23 @@ export class MapComponent implements OnDestroy, OnInit {
 
         this.occupiedOAs.push(oa);
       }
+
     }
 
 
-    const cluster = this.createMarkerCluster(markers, 'sensorCluster');
-    cluster.addLayer(markers);
-    this.currentNetwork = cluster;
+    console.log(markers)
+    // temporarily remove clusering as not working
+    // const cluster = this.createMarkerCluster(markers, 'sensorCluster');
+    // cluster.addLayer(markers);
+    // this.currentNetwork = cluster;
+    this.currentNetwork = markers;
     this.plotCentroids();
     this.map.addLayer(this.currentNetwork);
 
   }
 
   async createDraggableSnapToNearestCentroidMarker(latlng: { lat: any; lng: any; }, oa: { oa11cd: any; }) {
+    
     // create draggable marker
     // bind delete popup
     const buttonRemove = document.createElement('button');
@@ -512,6 +558,7 @@ export class MapComponent implements OnDestroy, OnInit {
     draggableMarker.markerType = 'sensor'
 
     this.currentNetworkMarkers.push(draggableMarker);
+    
 
     let startingPosition: { lat: any; lng: any; };
 
@@ -960,21 +1007,21 @@ export class MapComponent implements OnDestroy, OnInit {
     }
   }
 
-  createMarkerCluster(markers: any, clusterClassname: string) {
-    return (L as any).markerClusterGroup({
-      showCoverageOnHover: false,
-      spiderfyOnMaxZoom: false,
-      iconCreateFunction(cluster: { getChildCount: () => string; }) {
-        return L.divIcon({
-          className: clusterClassname,
-          html: '<b><sub>' + cluster.getChildCount() + '</sub></b>'
-        });
-      },
-      maxClusterRadius: 20
-    });
+  // createMarkerCluster(markers: any, clusterClassname: string) {
+  //   return L.markerClusterGroup({
+  //     showCoverageOnHover: false,
+  //     spiderfyOnMaxZoom: false,
+  //     iconCreateFunction(cluster) {
+  //       return L.divIcon({
+  //         className: clusterClassname,
+  //         html: '<b><sub>' + cluster.getChildCount() + '</sub></b>'
+  //       });
+  //     },
+  //     maxClusterRadius: 20
+  //   });
 
 
-  }
+  // }
 
   coordsToLatLng(coordinates: any[]) {
     return this.convertFromBNGProjection(coordinates[0], coordinates[1]);

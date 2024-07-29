@@ -10,14 +10,18 @@
   <!--        Select objectives-->
   <!--  Must choose at least one-->
   <p>Objectives: <span class="infoIcon" (click)="openInfo('objectiveChoice')"><mat-icon>info</mat-icon></span></p>
-  <div class="flex flex-row" *ngFor="let obj of geneticObjectives">
-   <button class="bg-purple]500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" id="{{obj.id}}" (click)="toggleGeneticObjective(obj.id)">{{obj.text}} <span *ngIf="objIsSelected(obj.id)" fxFlex="15%">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-      <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd" />
-    </svg>        
-   </span></button>
+  <div class="flex flex-row">
+  <div  *ngFor="let obj of geneticObjectives">
+   <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" id="{{obj.id}}" (click)="toggleGeneticObjective(obj.id)">{{obj.text}} 
+    <span *ngIf="objIsSelected(obj.id)" >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+        <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd" />
+      </svg>
+          
+   </span>
+  </button>
   </div>
-
+</div>
 
   <mat-error id="objectiveError" style="margin-top: 2px;" *ngIf="objectiveNotChosen">Please select at least one
     objective</mat-error>
@@ -26,25 +30,26 @@
   
 
     <p style="margin-top: 12px;">Sensors:</p>
-
+<div class="flex flex-row">
     <div *ngFor="let num of sensorNumbersAvailable">
-      <label>
-        <input type="radio" [value]="num" [name]="sensorNumber" [(ngModel)]="sensorNumber">{{ num }}
+      <label style="padding-right: 1.5em;">
+        <input style="padding-right: 1em;" type="radio" [value]="num" [name]="sensorNumber" [(ngModel)]="sensorNumber">{{ num }}
       </label>
     </div>
-
+</div>
 
 
 
     <!--    Select theta-->
     <p style="margin-top: 12px;">Theta:<span class="infoIcon"
         (click)="openInfo('thetaChoice')"><mat-icon>info</mat-icon></span></p>
+        <div class="flex flex-row">
     <div *ngFor="let tnum of thetaNumbersAvailable">
-      <label>
+      <label style="padding-right: 1.5em;">
         <input type="radio" [value]="tnum" [name]="theta" [(ngModel)]="theta">{{ tnum }}
       </label>
     </div>
-
+</div>
 
 
 

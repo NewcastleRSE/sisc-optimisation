@@ -21,6 +21,10 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+`ng build --output-path docs --base-href /sisc-optimisation/`
+
+When the build is complete, make a copy of docs/index.html and name it docs/404.html, commit and push.
+
 ## Deploy
 `ng deploy --base-href=/sisc-optimisation/`
 

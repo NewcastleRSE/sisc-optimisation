@@ -259,7 +259,7 @@ export class MapComponent implements OnDestroy, OnInit {
     this.map = map;
 
     // read in geojson files
-    this.http.get('../../assets/outputareas/ncl.geojson').subscribe((data) => {
+    this.http.get('assets/outputareas/ncl.geojson').subscribe((data) => {
       this.oaNcl = data
   })
    

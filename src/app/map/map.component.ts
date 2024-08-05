@@ -23,9 +23,6 @@ import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import 'leaflet.markercluster/dist/leaflet.markercluster';
 
-// import * as nclcentroids from '../../assets/outputareas/ncl.json' ;
-// import * as gatescentroids from '../../assets/outputareas/gates.json';
-
 // import 'leaflet/dist/images/marker-shadow.png';
 // import 'leaflet/dist/images/marker-icon.png';
 
@@ -263,7 +260,7 @@ export class MapComponent implements OnDestroy, OnInit {
       this.oaNcl = data
   })
    
-  this.http.get('../../assets/outputareas/gates.geojson').subscribe((data) => {
+  this.http.get('assets/outputareas/gates.geojson').subscribe((data) => {
     this.oaGates = data;
 })
 
@@ -271,7 +268,7 @@ export class MapComponent implements OnDestroy, OnInit {
 // this.centroidsNcl = nclcentroids
 // this.centroidsGates = gatescentroids
 
-this.http.get('../../assets/outputareas/ncl.json').subscribe((res) => {
+this.http.get('assets/outputareas/ncl.json').subscribe((res) => {
 const temp = res as Array<any>;
 
    // create list of leaflet latlngs to use for GeometryUtil.closest function and add field needed for formatting latlngs throughout the rest of the code
@@ -283,7 +280,7 @@ temp.forEach((m) => {
 });
 });
 
-this.http.get('../../assets/outputareas/gates.json').subscribe((res) => {
+this.http.get('assets/outputareas/gates.json').subscribe((res) => {
   const temp = res as Array<any>;
 
   // create list of leaflet latlngs to use for GeometryUtil.closest function and add field needed for formatting latlngs throughout the rest of the code

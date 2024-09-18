@@ -697,7 +697,8 @@ temp.forEach((m) => {
 
     await (await this.optimisationService.getCoverage(message)).subscribe((results) => {
       // update coverage on map - results.oa_coverage -> oa... and coverage
-
+console.log('results')
+console.log(results)
       // change oa11cd field to code so can use function used elsewhere
       // @ts-ignore
       const renamedCoverage = results.oa_coverage.map(el => ({code: el.oa11cd, coverage: el.coverage}));

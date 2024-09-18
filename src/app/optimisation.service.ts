@@ -13,8 +13,8 @@ export class OptimisationService {
 
   // get coverage for a user defined network
   async getCoverage(query: any) {
-
-    return this.http.post('https://optimisation-backend.azurewebsites.net/coverage', query, {
+console.log(query);
+    return this.http.post('https://sisc.azurewebsites.net/coverage', query, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })

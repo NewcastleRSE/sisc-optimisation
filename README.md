@@ -1,41 +1,81 @@
-# SiscOptimisation
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
+# Spatial Inequality in the Smart City Decision Support Tool
 
-Algorithm repo: https://github.com/alan-turing-institute/spatial-inequality/tree/main
+## About
 
+A reworking of the original Spatial Inequality project to accompany latest publications. The Geoserver and data layers elements have been removed, and sensor network generation has been retained. Relies on the spatial inequality API, currently deployed on Azure. 
 
+### Project Team
+Professor Rachel Franklin, Newcastle University  ([rachel.franklin@newcastle.ac.uk](mailto:rachel.franklin@newcastle.ac.uk))    
+Eman Zied-Abozied, Newcastle University  ([eman.zied-abozied@newcastle.ac.uk](mailto:Eman.Zied-Abozied@newcastle.ac.uk))   
+Dr Jack Roberts, The Alan Turing Institute ([jroberts@turing.ac.uk](mailto:jroberts@turing.ac.uk)) 
+  
+Previous team members:  
+Caitlin Robinson, Liverpool University  
+David Herbert, Newcastle University  
 
+### RSE Contact
+Dr Kate Court, RSE Team, Newcastle University ([kate.court@newcastle.ac.uk](mailto:kate.court@newcastle.ac.uk))  
 
-ng deploy --base-href=/angular-app/
+## Built With
 
-## Development server
+[Angular](https://angular.io/)   
+[Leaflet](https://leafletjs.com/plugins.html#printexport)  
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Getting Started
 
-## Code scaffolding
+### Prerequisites
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Node.js 10.13 is needed at a minimum.
 
-## Build
+### Installation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Clone the repo and navigate to it. Run ```npm install``` to install all the required packages.
 
-`ng build --output-path docs --base-href /sisc-optimisation/`
+### Running Locally
 
-When the build is complete, make a copy of docs/index.html and name it docs/404.html, commit and push.
+To run: ```ng serve```,
 
-## Deploy
-`ng deploy --base-href=/sisc-optimisation/`
-
-## Running unit tests
+### Running Tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+Run `cypress:open` to execute end to end tests using [Cypress](https://www.cypress.io/).
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Deployment
 
-## Further help
+This site is deployed using Github Pages. To update the site, run this command:
+`ng build --prod --output-path docs --base-href `    
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The `docs` folder should be updated. Then push to the main branch. 
+
+## Usage
+
+[Site](https://sisc-decision-support-tool.azurewebsites.net)
+
+Any links to production environment, video demos and screenshots.
+
+## Roadmap
+
+- [x] Initial Research  
+- [x] Minimum viable product  
+- [x] Alpha Release  
+- [x] Feature-Complete Release  
+
+## Contributing
+
+### Main Branch
+Protected and can only be pushed to via pull requests. Should be considered stable and a representation of production code.
+
+### Dev Branch
+Should be considered fragile, code should compile and run but features may be prone to errors.
+
+### Feature Branches
+A branch per feature being worked on.
+
+https://nvie.com/posts/a-successful-git-branching-model/
+
+## License
+
+## Citation
+See DOI badge at the top of the README
